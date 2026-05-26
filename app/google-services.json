@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "834637055293",
+    "firebase_url": "https://mafe-98c8f-default-rtdb.firebaseio.com",
+    "project_id": "mafe-98c8f",
+    "storage_bucket": "mafe-98c8f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:834637055293:android:dcaa893e47b1d67dd8f154",
+        "android_client_info": {
+          "package_name": "com.example.mafe"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBtptGOaqBCPKAZH7uDLnl7fUsk3sKwcyk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

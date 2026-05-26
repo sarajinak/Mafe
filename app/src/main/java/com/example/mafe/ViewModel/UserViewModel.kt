@@ -1,0 +1,68 @@
+package com.example.mafe.ViewModel
+
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import com.example.mafe.Model.UserModel
+import com.example.mafe.Repo.UserRepo
+
+class UserViewModel(val repo: UserRepo): ViewModel() {
+    fun Login(
+        email: String,
+        password: String,
+        callback: (Boolean, String)-> Unit
+    ){repo.Login(email,password,callback)}
+
+    //authentication function
+    fun Register(email: String, password: String,userModel: UserModel,callback: (Boolean, String, String) -> Unit)
+    {repo.Register(email,password,userModel,callback)}
+
+    //database function
+    fun addUser(id: String,userModel: UserModel,callback: (Boolean, String) -> Unit){repo.addUser(id,userModel,callback)}
+
+    fun ForgotPassword(email: String,callback: (Boolean, String) -> Unit){repo.ForgotPassword(email,callback)}
+
+
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: MutableLiveData<Boolean> get() = _loading
+
+    private val _users = MutableLiveData<UserModel?>()
+    val users: MutableLiveData<UserModel?> get() = _users
+    fun getUserById(
+        id: String
+    ){
+        _loading.value = true
+        repo.getUserById(id){
+                success, msg, data->
+            if(success == true){
+                _users.value = data
+                _loading.value = false
+            }else{
+                _users.value = null
+                _loading.value = false
+            }
+        }
+    }
+
+    private val _allUsers = MutableLiveData<List<UserModel?>>()
+    val allUsers: MutableLiveData<List<UserModel?>> get() = _allUsers
+
+    fun getAllUser()
+    {
+        _loading.value = true
+        repo.getAllUser{ success, message, data ->
+            if (success){
+                _loading.value = false
+                _allUsers.value = data
+            }else{
+                _loading.value = false
+                _allUsers.value = emptyList()
+            }
+        }
+    }
+
+    fun editProfile(id: String, userModel: UserModel, callback: (Boolean, String) -> Unit){repo.editProfile(id,userModel,callback)}
+
+    fun deleteAccount(id: String, callback: (Boolean, String) -> Unit){repo.deleteAccount(id,callback)}
+
+    fun Logout(callback: (Boolean, String) -> Unit){ repo.Logout(callback)}
+}
